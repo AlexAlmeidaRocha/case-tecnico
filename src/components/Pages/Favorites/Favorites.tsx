@@ -18,7 +18,14 @@ import { useFavorites } from "../../../hooks/useFavorites";
 const Favorites: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { favorites, toggleFavorite, isFavorite, isEmpty } = useFavorites();
+  const {
+    favorites,
+    toggleFavorite,
+    isFavorite,
+    isEmpty,
+    clearFavoriteUsers,
+    favoritesLength,
+  } = useFavorites();
 
   const handleUserClick = (user: User) => {
     dispatch(selectUser(user));
@@ -36,6 +43,13 @@ const Favorites: React.FC = () => {
         <Button variant="secondary" onClick={() => navigate("/")}>
           Voltar para Lista
         </Button>
+        <Button
+          variant="danger"
+          onClick={clearFavoriteUsers}
+          disabled={favoritesLength === 0}
+        >
+          Limpar Favoritos
+        </Button>
       </NavigationContainer>
 
       <Header>
@@ -45,9 +59,9 @@ const Favorites: React.FC = () => {
         <Text type="p" color="white">
           {isEmpty
             ? "Nenhum usuário favoritado ainda"
-            : `${length} usuário${length > 1 ? "s" : ""} favoritado${
-                length > 1 ? "s" : ""
-              }`}
+            : `${favoritesLength} usuário${
+                favoritesLength > 1 ? "s" : ""
+              } favoritado${favoritesLength > 1 ? "s" : ""}`}
         </Text>
       </Header>
 

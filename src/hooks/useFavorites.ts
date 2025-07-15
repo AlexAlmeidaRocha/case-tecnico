@@ -1,7 +1,11 @@
 import { useLocalStorageArray } from "react-hooks-localstorage";
 import type { User } from "../store/user.interfaces";
 import { useAppDispatch } from "./redux";
-import { addToFavorites, removeFromFavorites } from "../store/usersSlice";
+import {
+  addToFavorites,
+  clearFavoriteUser,
+  removeFromFavorites,
+} from "../store/usersSlice";
 
 export const useFavorites = () => {
   const {
@@ -11,6 +15,7 @@ export const useFavorites = () => {
     findItem,
     length,
     isEmpty,
+    clearArray,
   } = useLocalStorageArray<User>("userFavorites", []);
   const dispatch = useAppDispatch();
 
@@ -42,10 +47,16 @@ export const useFavorites = () => {
     }
   };
 
+  const clearFavoriteUsers = () => {
+    clearArray();
+    dispatch(clearFavoriteUser());
+  };
+
   return {
     favorites,
     isFavorite,
     toggleFavorite,
+    clearFavoriteUsers,
     favoritesLength: length,
     isEmpty,
   };

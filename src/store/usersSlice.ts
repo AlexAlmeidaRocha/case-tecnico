@@ -46,9 +46,6 @@ const usersSlice = createSlice({
     selectUser: (state, action: PayloadAction<User>) => {
       state.selectedUser = action.payload;
     },
-    clearSelectedUser: (state) => {
-      state.selectedUser = null;
-    },
 
     addToFavorites: (state, action: PayloadAction<User>) => {
       const isAlreadyFavorite = state.favorites.some(
@@ -63,6 +60,9 @@ const usersSlice = createSlice({
         (fav) => fav.id !== action.payload
       );
     },
+    clearFavoriteUser: (state) => {
+      state.favorites = [];
+    },
   },
 });
 
@@ -71,7 +71,7 @@ export const {
   fetchUsersSuccess,
   fetchUsersFailure,
   selectUser,
-  clearSelectedUser,
+  clearFavoriteUser,
   addToFavorites,
   removeFromFavorites,
 } = usersSlice.actions;
