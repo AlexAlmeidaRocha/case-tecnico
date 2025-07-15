@@ -96,7 +96,7 @@ Component/
 3. **Manutenibilidade**: Fácil encontrar e modificar estilos específicos
 4. **Reutilização**: Interfaces podem ser importadas independentemente
 
-**Nota:** Caso tenha documentação e test, porem também manter na mesmas estrutura, por exemplo:
+**Nota:** Caso tenha documentação e test, podem também manter na mesmas estrutura, por exemplo:
 
 ```
 Component/
