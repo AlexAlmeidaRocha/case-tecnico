@@ -18,10 +18,13 @@ import Text from "../../Atoms/Text/Text";
 import UserCard from "../../Molecules/UserCard/UserCard";
 import NoResultCard from "../../Molecules/NoResultCard/NoResultCard";
 import { useFavorites } from "../../../hooks/useFavorites";
+import Modal from "../../Molecules/Modal/Modal";
+import UserDetailWrapper from "../../Organisms/UserDetail/UserDetailWrapper";
 
 const UserList: React.FC = () => {
   const [filterUsers, setFilterUsers] = React.useState<User[]>([]);
   const [searchTerm, setSearchTerm] = React.useState<string>("");
+  const [user, setUser] = React.useState<User | null>(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { users, loading, error } = useAppSelector((state) => state.users);
@@ -44,7 +47,7 @@ const UserList: React.FC = () => {
   const filteredUsers = searchTerm ? filterUsers : users;
 
   const handleUserClick = (user: User) => {
-    navigate(`/user/${user.id}`, { state: { user } });
+    setUser(user);
   };
 
   const handleFavoriteToggle = (user: User, event: React.MouseEvent) => {
@@ -109,6 +112,14 @@ const UserList: React.FC = () => {
             />
           ))}
         </UserGrid>
+      )}
+
+      {user?.id && (
+        <Modal
+          title="Detalhes do Usuário"
+          onClose={() => setUser(null)}
+          children={<UserDetailWrapper user={user} />}
+        />
       )}
     </Container>
   );

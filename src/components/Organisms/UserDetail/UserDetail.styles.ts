@@ -11,13 +11,6 @@ export const Container = styled.div`
   padding: 1rem 0;
 `;
 
-export const NavigationContainer = styled.div`
-  display: flex;
-  justify-content: start;
-  width: 100%;
-  max-width: 1400px;
-`;
-
 export const UserDetailContainer = styled.div`
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(15px);

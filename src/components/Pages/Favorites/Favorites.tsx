@@ -6,17 +6,17 @@ import {
   Container,
   Header,
 } from "./Favorities.styles";
-import { useAppDispatch } from "../../../hooks/redux";
-import { selectUser } from "../../../store/usersSlice";
 import Button from "../../Atoms/Button/Button";
 import type { User } from "../../../store/user.interfaces";
 import UserCard from "../../Molecules/UserCard/UserCard";
 import Text from "../../Atoms/Text/Text";
 import NoResultCard from "../../Molecules/NoResultCard/NoResultCard";
 import { useFavorites } from "../../../hooks/useFavorites";
+import Modal from "../../Molecules/Modal/Modal";
+import UserDetailWrapper from "../../Organisms/UserDetail/UserDetailWrapper";
 
 const Favorites: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const [user, setUser] = React.useState<User | null>(null);
   const navigate = useNavigate();
   const {
     favorites,
@@ -28,8 +28,7 @@ const Favorites: React.FC = () => {
   } = useFavorites();
 
   const handleUserClick = (user: User) => {
-    dispatch(selectUser(user));
-    navigate(`/user/${user.id}`, { state: { user } });
+    setUser(user);
   };
 
   const handleFavoriteToggle = (user: User, event: React.MouseEvent) => {
@@ -90,6 +89,14 @@ const Favorites: React.FC = () => {
             />
           ))}
         </UserGrid>
+      )}
+
+      {user?.id && (
+        <Modal
+          title="Detalhes do Usuário"
+          onClose={() => setUser(null)}
+          children={<UserDetailWrapper user={user} />}
+        />
       )}
     </Container>
   );

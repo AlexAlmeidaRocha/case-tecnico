@@ -1,14 +1,10 @@
 import { Component } from "react";
-import { connect } from "react-redux";
-import type { RootState } from "../../../store/store";
-import type { AppDispatch } from "../../../store/store";
 import {
   Container,
   UserDetailContainer,
   UserDetailHeader,
   UserDetailSection,
   InfoGrid,
-  NavigationContainer,
 } from "./UserDetail.styles";
 import type { UserDetailProps } from "./UserDetail.interfaces";
 import Button from "../../Atoms/Button/Button";
@@ -19,10 +15,6 @@ class UserDetail extends Component<UserDetailProps> {
   constructor(props: UserDetailProps) {
     super(props);
   }
-
-  handleBack = () => {
-    window.history.back();
-  };
 
   handleFavoriteToggle = () => {
     const { user, toggleFavorite } = this.props;
@@ -37,12 +29,6 @@ class UserDetail extends Component<UserDetailProps> {
 
     return (
       <Container>
-        <NavigationContainer>
-          <Button variant="secondary" onClick={this.handleBack}>
-            Voltar
-          </Button>
-        </NavigationContainer>
-
         <UserDetailContainer>
           <UserDetailHeader>
             <Text type="h1">{user?.name}</Text>
@@ -107,13 +93,4 @@ class UserDetail extends Component<UserDetailProps> {
   }
 }
 
-const mapStateToProps = (state: RootState) => ({
-  user: state.users.selectedUser,
-  favorites: state.users.favorites,
-});
-
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  dispatch,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserDetail);
+export default UserDetail;
